@@ -1,0 +1,8 @@
+[agents]
+enabled = true
+max_concurrent_threads_per_session = 3
+
+# Coding 子 Agent 執行 dotnet restore 需要連網下載 NuGet 套件。
+# 套件快取由專案根目錄的 nuget.config 指到 .nuget/packages（工作區內）。
+[sandbox_workspace_write]
+network_access = true

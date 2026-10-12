@@ -1,0 +1,22 @@
+<Project>
+  <!--
+    團隊建置規則，對應 docs/team-rules。違反即建置失敗，由 eng/verify.ps1 與 Coding 結束 hook 擋下。
+    不得以 NoWarn、#pragma warning disable 或降低 AnalysisLevel 來消除失敗（CODE-07）。
+  -->
+  <PropertyGroup>
+    <Nullable>enable</Nullable>
+
+    <!-- CODE-07：本次變更不得引入編譯警告 -->
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AnalysisLevel>latest-recommended</AnalysisLevel>
+
+    <!-- NAME-01／NAME-02：.editorconfig 的命名規則（IDE1006）在建置時檢查 -->
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+
+    <!--
+      SEC-09：NuGetAudit 在 restore 時對已知弱點套件發出 NU1901～NU1904，配合 TreatWarningsAsErrors 視為錯誤。
+      NU1900 表示無法取得弱點資料（例如離線），不阻擋建置，但需在驗證結果中說明。
+    -->
+    <WarningsNotAsErrors>$(WarningsNotAsErrors);NU1900</WarningsNotAsErrors>
+  </PropertyGroup>
+</Project>

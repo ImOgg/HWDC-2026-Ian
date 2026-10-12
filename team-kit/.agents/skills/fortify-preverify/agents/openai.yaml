@@ -1,0 +1,6 @@
+interface:
+  display_name: "Fortify Preverify"
+  short_description: "Trace source-code risks against team security rules"
+  default_prompt: "Use $fortify-preverify for the current approved change."
+policy:
+  allow_implicit_invocation: false

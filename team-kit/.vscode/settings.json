@@ -1,0 +1,11 @@
+{
+  "chat.useAgentsMdFile": true,
+  "chat.useClaudeMdFile": false,
+  "chat.tools.terminal.autoApprove": {
+    "/^dotnet (restore|build|test)\\b/": true,
+    "/^pwsh -NoProfile -File eng[\\\\/]verify\\.ps1$/": true,
+    "/^git (status|diff|log|show|ls-files|blame|rev-parse)\\b/": true,
+    "/^git (push|commit)\\b/": false,
+    "/--(output|ext-diff|textconv)\\b/": false
+  }
+}
