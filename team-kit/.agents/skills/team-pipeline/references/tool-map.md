@@ -13,7 +13,7 @@
 
 ## 工作者 Skill 只由子 Agent 讀取
 
-mvc-coding、code-review、fortify-preverify 關閉隱性觸發：SKILL.md 設 `disable-model-invocation: true`（VS Code），agents/openai.yaml 設 `policy.allow_implicit_invocation: false`（Codex）。主 Agent 不會依 description 自動載入它們；子 Agent 依 Agent 檔指定的路徑直接讀 SKILL.md，不受影響。Claude Code 不掃描 .agents/skills，透過子 Agent 讀檔使用。team-pipeline 維持可隱性觸發。
+mvc-coding、code-review、fortify-preverify 關閉隱性觸發：SKILL.md 設 `disable-model-invocation: true`（VS Code），agents/openai.yaml 設 `policy.allow_implicit_invocation: false`（Codex）。主 Agent 不會依 description 自動載入它們；子 Agent 依 Agent 檔指定的路徑直接讀 SKILL.md，不受影響。Claude Code 不掃描 .agents/skills，透過子 Agent 讀檔使用。team-pipeline 也關閉隱性觸發，只由使用者明確呼叫啟動（VS Code `/team-pipeline`、Claude Code `/team-pipeline-claude`、Codex `$team-pipeline`），小修改才不會被自動帶進完整流程。
 
 ## Reviewer 的 git 權限
 

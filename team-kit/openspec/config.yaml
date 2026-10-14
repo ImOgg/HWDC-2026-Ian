@@ -24,7 +24,7 @@ operations:
   apply:
     guidance:
       - Do not implement this change in the current context.
-      - Start the team-pipeline skill for this change. It delegates Coding, Code Review and Fortify preverify to native sub-agents and decides completion.
+      - Ask the user to start the team-pipeline skill explicitly for this change (/team-pipeline in VS Code, /team-pipeline-claude in Claude Code, $team-pipeline in Codex). It delegates Coding, Code Review and Fortify preverify to native sub-agents and decides completion.
       - If the user has not approved proposal, spec, design and tasks, stop and ask.
   archive:
     guidance:

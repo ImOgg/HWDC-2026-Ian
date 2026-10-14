@@ -1,6 +1,7 @@
 ---
 name: team-pipeline
 description: 協調長期 AI Coding Team，以 OpenSpec 確認需求後依序派工 Coding、Code Review 與 Fortify preverify。使用者要求按團隊流程新增、修復、重構或交付功能時使用，管理修復與完成條件。
+disable-model-invocation: true
 ---
 
 # Team Pipeline

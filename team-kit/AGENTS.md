@@ -16,7 +16,7 @@
 
 ## 工作流程
 - 需求討論先使用 OpenSpec；產出 proposal、spec、design、tasks，取得使用者確認後才實作。
-- 內建主 Agent 使用 team-pipeline Skill，依序委派 Coding、Code Review、Fortify preverify。
+- 使用者明確呼叫 team-pipeline Skill（VS Code `/team-pipeline`）後，內建主 Agent 依序委派 Coding、Code Review、Fortify preverify。主 Agent 不自行啟動 team-pipeline。
 - Coding 依獲授權的修改範圍工作；Reviewer 唯讀，修改交回 Coding。
 - Reviewer 實際核對程式、適用規範、Spec 與測試，不以 Coding 摘要代替審查。
 - Coding 結束前由工具 hook 執行 eng/verify.ps1，未通過不得結束；主 Agent 派審前自行再執行一次。
@@ -27,8 +27,12 @@
 - 審查期間暫停修改受檢內容；修改後重新驗證與審查。不得捏造結果或沿用修改前的 PASS。
 - 未經授權不得改團隊規範、Skill、Agent、eng/ 驗證腳本、hook 設定、Directory.Build.props、.editorconfig 或架構測試來消除失敗。政策例外依架構規範辦理。
 
+## 小修改出口
+使用者明確說明「小修改，不走 team-pipeline」時，主 Agent 可直接修改，不建立 OpenSpec change、不委派子 Agent；修改後仍須執行 `pwsh -NoProfile -File eng/verify.ps1` 並回報結果，未通過不得回報完成。
+主 Agent 不得自行判定某個需求屬於小修改；使用者沒有明確說明時，依上方工作流程處理。共用規範、禁止改規則來過關、commit 與 push 由人執行等規定照常適用。
+
 ## 元件入口
-- 主 Agent：.agents/skills/team-pipeline/SKILL.md
+- 主 Agent 流程（使用者明確呼叫時）：.agents/skills/team-pipeline/SKILL.md
 - Coding：.agents/skills/mvc-coding/SKILL.md
 - 工程審查：.agents/skills/code-review/SKILL.md
 - 安全預檢：.agents/skills/fortify-preverify/SKILL.md

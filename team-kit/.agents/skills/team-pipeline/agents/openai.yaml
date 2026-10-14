@@ -2,3 +2,5 @@ interface:
   display_name: "Team Pipeline"
   short_description: "Coordinate approved changes, coding and two reviews"
   default_prompt: "Use $team-pipeline for the current approved change."
+policy:
+  allow_implicit_invocation: false
