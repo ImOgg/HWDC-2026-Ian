@@ -1,0 +1,107 @@
+root = true
+
+[*]
+charset = utf-8
+indent_style = space
+
+[*.cs]
+indent_size = 4
+
+# NAME-01／NAME-02：命名規則由 IDE1006 在建置時檢查。
+# 搭配 Directory.Build.props 的 EnforceCodeStyleInBuild 與 TreatWarningsAsErrors，違反即建置失敗。
+# 規則依符號定義自動排序（存取範圍、修飾詞越具體越優先），與書寫順序無關。
+dotnet_diagnostic.IDE1006.severity = warning
+
+# ---- 符號定義 ----
+dotnet_naming_symbols.interfaces.applicable_kinds = interface
+dotnet_naming_symbols.interfaces.applicable_accessibilities = *
+
+dotnet_naming_symbols.types_and_namespaces.applicable_kinds = namespace, class, struct, enum, delegate
+dotnet_naming_symbols.types_and_namespaces.applicable_accessibilities = *
+
+dotnet_naming_symbols.members.applicable_kinds = method, property, event
+dotnet_naming_symbols.members.applicable_accessibilities = *
+
+# 只能比對 async 修飾詞；未加 async 但回傳 Task 的方法，由 Code Review 依 NAME-02 檢查
+dotnet_naming_symbols.async_methods.applicable_kinds = method
+dotnet_naming_symbols.async_methods.applicable_accessibilities = *
+dotnet_naming_symbols.async_methods.required_modifiers = async
+
+dotnet_naming_symbols.constants.applicable_kinds = field, local
+dotnet_naming_symbols.constants.applicable_accessibilities = *
+dotnet_naming_symbols.constants.required_modifiers = const
+
+dotnet_naming_symbols.static_fields.applicable_kinds = field
+dotnet_naming_symbols.static_fields.applicable_accessibilities = *
+dotnet_naming_symbols.static_fields.required_modifiers = static
+
+dotnet_naming_symbols.private_fields.applicable_kinds = field
+dotnet_naming_symbols.private_fields.applicable_accessibilities = private
+
+dotnet_naming_symbols.parameters_and_locals.applicable_kinds = parameter, local
+dotnet_naming_symbols.parameters_and_locals.applicable_accessibilities = *
+
+# ---- 樣式 ----
+dotnet_naming_style.pascal_case.capitalization = pascal_case
+
+dotnet_naming_style.begins_with_i.required_prefix = I
+dotnet_naming_style.begins_with_i.capitalization = pascal_case
+
+dotnet_naming_style.ends_with_async.required_suffix = Async
+dotnet_naming_style.ends_with_async.capitalization = pascal_case
+
+dotnet_naming_style.underscore_camel_case.required_prefix = _
+dotnet_naming_style.underscore_camel_case.capitalization = camel_case
+
+dotnet_naming_style.camel_case.capitalization = camel_case
+
+# ---- 規則 ----
+# NAME-02：介面以 I 開頭
+dotnet_naming_rule.interfaces_begin_with_i.symbols = interfaces
+dotnet_naming_rule.interfaces_begin_with_i.style = begins_with_i
+dotnet_naming_rule.interfaces_begin_with_i.severity = warning
+
+# NAME-02：async 方法以 Async 結尾
+dotnet_naming_rule.async_methods_end_with_async.symbols = async_methods
+dotnet_naming_rule.async_methods_end_with_async.style = ends_with_async
+dotnet_naming_rule.async_methods_end_with_async.severity = warning
+
+# NAME-01：常數 PascalCase
+dotnet_naming_rule.constants_pascal_case.symbols = constants
+dotnet_naming_rule.constants_pascal_case.style = pascal_case
+dotnet_naming_rule.constants_pascal_case.severity = warning
+
+# NAME-01 未規定 static 欄位，不檢查
+dotnet_naming_rule.static_fields_not_checked.symbols = static_fields
+dotnet_naming_rule.static_fields_not_checked.style = pascal_case
+dotnet_naming_rule.static_fields_not_checked.severity = none
+
+# NAME-01：私有 instance 欄位 _camelCase
+dotnet_naming_rule.private_fields_underscore.symbols = private_fields
+dotnet_naming_rule.private_fields_underscore.style = underscore_camel_case
+dotnet_naming_rule.private_fields_underscore.severity = warning
+
+# NAME-01：型別、namespace、公開成員 PascalCase
+dotnet_naming_rule.types_pascal_case.symbols = types_and_namespaces
+dotnet_naming_rule.types_pascal_case.style = pascal_case
+dotnet_naming_rule.types_pascal_case.severity = warning
+
+dotnet_naming_rule.members_pascal_case.symbols = members
+dotnet_naming_rule.members_pascal_case.style = pascal_case
+dotnet_naming_rule.members_pascal_case.severity = warning
+
+# NAME-01：參數與區域變數 camelCase
+dotnet_naming_rule.parameters_and_locals_camel_case.symbols = parameters_and_locals
+dotnet_naming_rule.parameters_and_locals_camel_case.style = camel_case
+dotnet_naming_rule.parameters_and_locals_camel_case.severity = warning
+
+# NAME-02：MVC action 遵循框架路由契約，不強制 Async 後綴
+[src/**/Controllers/**.cs]
+dotnet_naming_rule.async_methods_end_with_async.severity = none
+
+# NAME-01／NAME-02：測試方法以情境描述命名，可用底線分段，不強制 Async 後綴
+[tests/**.cs]
+dotnet_naming_rule.async_methods_end_with_async.severity = none
+dotnet_naming_rule.members_pascal_case.severity = none
+dotnet_diagnostic.CA1707.severity = none
+dotnet_diagnostic.CA1822.severity = none

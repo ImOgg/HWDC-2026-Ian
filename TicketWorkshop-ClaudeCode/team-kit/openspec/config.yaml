@@ -1,0 +1,32 @@
+schema: spec-driven
+context: |
+  Use Traditional Chinese. This team develops C# / ASP.NET Core MVC software.
+  AGENTS.md and docs/team-rules/ define the team policies.
+  docs/project-context.md describes this repository; inspect existing code before proposing changes.
+  Business requirements belong to the current change, not to reusable Skills or Agents.
+  Use OpenSpec for proposal, specifications, design and tasks (work items).
+  After user approval, the built-in main Agent runs team-pipeline and delegates
+  Coding, Code Review and Fortify preverify. Do not substitute OpenSpec apply for this pipeline.
+  After the user accepts the delivery, archive the change so openspec/specs stays the current baseline.
+rules:
+  specs:
+    - Define observable behavior, acceptance scenarios and non-goals for this change.
+    - State relevant validation, permissions, consistency and compatibility requirements.
+    - Use ADDED, MODIFIED or REMOVED requirements according to the actual baseline.
+  design:
+    - Explain affected layers, contracts, storage and security boundaries using team rule IDs.
+    - Document any user-approved policy exception explicitly; do not infer an exception.
+  tasks:
+    - Decompose implementation and verification work and link them to acceptance scenarios.
+    - List implementation and verification work for Coding; independent reviews are performed by the main Agent through team-pipeline. Never precheck unfinished work.
+    - Include affected behavior regression checks; finish task progress before final verification.
+operations:
+  apply:
+    guidance:
+      - Do not implement this change in the current context.
+      - Ask the user to start the team-pipeline skill explicitly for this change by typing /team-pipeline. It delegates Coding, Code Review and Fortify preverify to native sub-agents and decides completion.
+      - If the user has not approved proposal, spec, design and tasks, stop and ask.
+  archive:
+    guidance:
+      - Archive only after team-pipeline reported completion (tasks done, eng/verify.ps1 passed, Code Review PASS, Fortify preverify PASS) and the user accepted the delivery.
+      - Archiving merges the delta specs into openspec/specs, which becomes the baseline for the next change.
