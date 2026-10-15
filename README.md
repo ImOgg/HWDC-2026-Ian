@@ -2,6 +2,8 @@
 
 HWDC 2026 Lab「AI Coding 治理實戰：從開發到交付的 Harness 工程」的課堂專案。
 
+TicketWorkshop-ClaudeCode，由 Claude Code 轉譯尚未經過驗證，核心概念在 team-kit 裡的 agent、skill 相關設計的 md 
+
 使用 VS Code + GitHub Copilot，把一套 Agent Team（主 Agent 加上 Coding、Code Review、Fortify preverify 三個子 Agent，以及四個共用 Skill）配置到這個 .NET 10 MVC 專案，再用 OpenSpec 從需求討論、產出 Spec，一路走到程式碼交付。
 
 **操作步驟請看 [WORKSHOP.md](WORKSHOP.md)。**
